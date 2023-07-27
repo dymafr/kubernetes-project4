@@ -26,6 +26,12 @@ spec:
             name: nginx-config
       initContainers:
         - name: init-mysql
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
           image: dymafr/projet4-php-fpm
           command: 
             - 'sh'
@@ -44,6 +50,12 @@ spec:
           image: dymafr/projet4-php-fpm
           ports:
             - containerPort: 9000
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD 
         - name: nginx
           image: dymafr/projet4-nginx
           ports:
